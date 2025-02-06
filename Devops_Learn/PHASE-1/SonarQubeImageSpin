@@ -1,0 +1,24 @@
+docker pull sonarqube
+
+$> docker volume create --name sonarqube_data
+$> docker volume create --name sonarqube_logs
+$> docker volume create --name sonarqube_extensions
+
+$ docker run --rm  -p 9000:9000 -v sonarqube_extensions:/opt/sonarqube/extensions <image_name - sonarqube>
+b. Exit once SonarQube has started properly.
+c. Copy the Oracle JDBC driver into sonarqube_extensions/jdbc-driver/oracle.
+
+Start the SonarQube container
+Start the SonarQube container:
+
+either from the command line (docker run) or from a configuration file (docker compose). 
+
+$> docker run -d --name sonarqube \
+    -p 9000:9000 \
+    -e SONAR_JDBC_URL=... \
+    -e SONAR_JDBC_USERNAME=... \
+    -e SONAR_JDBC_PASSWORD=... \
+    -v sonarqube_data:/opt/sonarqube/data \
+    -v sonarqube_extensions:/opt/sonarqube/extensions \
+    -v sonarqube_logs:/opt/sonarqube/logs \
+    <image_name>
